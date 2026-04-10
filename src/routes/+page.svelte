@@ -1,3 +1,7 @@
+<script lang="ts">
+	let { data } = $props();
+</script>
+
 <section class="mb-16">
 	<h1 class="text-3xl font-semibold mb-3 tracking-tight">Per Kristian Lauvstad</h1>
 	<p class="text-lg text-[var(--color-text-muted)] mb-1">D2 Athlete &middot; CS Student &middot; Gannon University</p>
@@ -11,7 +15,7 @@
 
 	<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
 		<a
-			href="https://pklauv.github.io/KeyCrack/"
+			href="https://github.com/PKLauv/KeyCrack"
 			target="_blank"
 			rel="noopener"
 			class="group block rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)] p-5 transition-colors hover:bg-[var(--color-surface-hover)] hover:border-[var(--color-accent)]/30"
@@ -27,7 +31,7 @@
 		</a>
 
 		<a
-			href="https://pklauv.github.io/Math-Phenomena/"
+			href="https://github.com/PKLauv/Math-Phenomena"
 			target="_blank"
 			rel="noopener"
 			class="group block rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)] p-5 transition-colors hover:bg-[var(--color-surface-hover)] hover:border-[var(--color-accent)]/30"
@@ -64,5 +68,13 @@
 
 <section>
 	<h2 class="text-sm font-medium text-[var(--color-text-muted)] uppercase tracking-wide mb-6">Latest from the blog</h2>
-	<p class="text-sm text-[var(--color-text-muted)]">No posts yet — check back soon.</p>
+	{#if data.latestPost}
+		<a href="/blog/{data.latestPost.slug}" class="group block -mx-3 px-3 py-4 rounded-lg hover:bg-[var(--color-surface)] transition-colors">
+			<time class="text-xs text-[var(--color-text-muted)]">{data.latestPost.date}</time>
+			<h3 class="font-medium mt-1 group-hover:text-[var(--color-accent)] transition-colors">{data.latestPost.title}</h3>
+			<p class="text-sm text-[var(--color-text-muted)] mt-1">{data.latestPost.excerpt}</p>
+		</a>
+	{:else}
+		<p class="text-sm text-[var(--color-text-muted)]">No posts yet — check back soon.</p>
+	{/if}
 </section>
