@@ -1,7 +1,8 @@
 ---
 title: Wiring it up
 date: "2026-04-10"
-excerpt: Dashboard idea turned into something more. 
+excerpt: Dashboard idea turned into something more.
+tags: ["personal", "meta"]
 published: true
 ---
 

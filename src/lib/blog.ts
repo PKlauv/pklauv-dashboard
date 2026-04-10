@@ -4,19 +4,26 @@ export interface Post {
 	date: string;
 	excerpt: string;
 	published: boolean;
+	readTime: number;
+	tags: string[];
 }
 
 export async function getPosts(): Promise<Post[]> {
 	const modules = import.meta.glob('/content/blog/*.md', { eager: true });
+	const rawFiles = import.meta.glob('/content/blog/*.md', { eager: true, query: '?raw', import: 'default' });
 
 	const posts: Post[] = [];
 
 	for (const [path, module] of Object.entries(modules)) {
-		const { metadata } = module as { metadata: Omit<Post, 'slug'> };
+		const { metadata } = module as { metadata: Omit<Post, 'slug' | 'readTime'> };
 		const slug = path.split('/').pop()!.replace('.md', '');
 
 		if (metadata.published) {
-			posts.push({ slug, ...metadata });
+			const raw = (rawFiles[path] as string) ?? '';
+			const body = raw.replace(/^---[\s\S]*?---/, '');
+			const words = body.split(/\s+/).filter(Boolean).length;
+			const readTime = Math.max(1, Math.ceil(words / 200));
+			posts.push({ slug, readTime, tags: metadata.tags ?? [], ...metadata });
 		}
 	}
 
