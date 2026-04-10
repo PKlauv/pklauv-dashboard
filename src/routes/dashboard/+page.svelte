@@ -16,6 +16,37 @@
 		'math-phenomena': 'Math-Phenomena',
 		gesturemute: 'GestureMute'
 	};
+
+	const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+	function contribLevel(count: number): string {
+		if (count === 0) return 'bg-[var(--color-border)]';
+		if (count <= 3) return 'bg-green-900';
+		if (count <= 6) return 'bg-green-700';
+		if (count <= 9) return 'bg-green-500';
+		return 'bg-green-400';
+	}
+
+	let graphScroll: HTMLDivElement;
+	$effect(() => {
+		if (graphScroll) graphScroll.scrollLeft = graphScroll.scrollWidth;
+	});
+
+	const monthLabels = $derived.by(() => {
+		const labels: { label: string; col: number }[] = [];
+		let lastMonth = -1;
+		for (let i = 0; i < data.calendar.weeks.length; i++) {
+			const firstDay = data.calendar.weeks[i].days[0];
+			if (firstDay) {
+				const month = new Date(firstDay.date).getMonth();
+				if (month !== lastMonth) {
+					labels.push({ label: months[month], col: i });
+					lastMonth = month;
+				}
+			}
+		}
+		return labels;
+	});
 </script>
 
 <div class="max-w-5xl mx-auto">
@@ -106,6 +137,87 @@
 				</div>
 			{:else}
 				<p class="text-sm text-[var(--color-text-muted)]">No referrer data yet.</p>
+			{/if}
+		</div>
+
+		<!-- Active repos -->
+		<div class="rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] p-6">
+			<p class="text-xs text-[var(--color-text-muted)] uppercase tracking-wide">Active repos</p>
+			<p class="text-4xl font-semibold mt-2">{data.activeReposCount}</p>
+			<p class="text-xs text-[var(--color-text-muted)] mt-2">Pushed in last 30 days</p>
+		</div>
+
+		<!-- Top languages -->
+		<div class="rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] p-6">
+			<p class="text-xs text-[var(--color-text-muted)] uppercase tracking-wide mb-4">Top languages</p>
+			<div class="space-y-2">
+				{#each data.topLanguages as lang}
+					<div class="flex items-center justify-between text-sm">
+						<span class="text-[var(--color-text-muted)]">{lang.language}</span>
+						<span class="font-medium tabular-nums">{lang.count} {lang.count === 1 ? 'repo' : 'repos'}</span>
+					</div>
+				{/each}
+			</div>
+		</div>
+
+		<!-- GitHub contribution graph -->
+		<div class="md:col-span-3 rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] p-6">
+			<div class="flex items-center justify-between mb-3">
+				<p class="text-xs text-[var(--color-text-muted)] uppercase tracking-wide">GitHub contributions</p>
+				<p class="text-xs text-[var(--color-text-muted)]">{data.calendar.totalContributions} public contributions in the last year</p>
+			</div>
+			<div class="overflow-x-auto" bind:this={graphScroll}>
+				<div class="inline-grid gap-[3px]" style="grid-template-columns: auto repeat({data.calendar.weeks.length}, 1fr);">
+					<div></div>
+					{#each data.calendar.weeks as week, i}
+						{@const label = monthLabels.find((m) => m.col === i)}
+						<div class="text-[10px] text-[var(--color-text-muted)] h-3">
+							{label ? label.label : ''}
+						</div>
+					{/each}
+					{#each [0, 1, 2, 3, 4, 5, 6] as dayIndex}
+						<div class="text-[10px] text-[var(--color-text-muted)] pr-2 h-[11px] flex items-center">
+							{dayIndex === 1 ? 'Mon' : dayIndex === 3 ? 'Wed' : dayIndex === 5 ? 'Fri' : ''}
+						</div>
+						{#each data.calendar.weeks as week}
+							{@const day = week.days.find((d) => d.weekday === dayIndex)}
+							{#if day}
+								<div
+									class="w-[11px] h-[11px] rounded-sm {contribLevel(day.count)}"
+									title="{day.count} contribution{day.count !== 1 ? 's' : ''} on {day.date}"
+								></div>
+							{:else}
+								<div class="w-[11px] h-[11px]"></div>
+							{/if}
+						{/each}
+					{/each}
+				</div>
+			</div>
+			<div class="flex items-center justify-end gap-1 mt-3">
+				<span class="text-[10px] text-[var(--color-text-muted)]">Less</span>
+				<div class="w-[11px] h-[11px] rounded-sm bg-[var(--color-border)]"></div>
+				<div class="w-[11px] h-[11px] rounded-sm bg-green-900"></div>
+				<div class="w-[11px] h-[11px] rounded-sm bg-green-700"></div>
+				<div class="w-[11px] h-[11px] rounded-sm bg-green-500"></div>
+				<div class="w-[11px] h-[11px] rounded-sm bg-green-400"></div>
+				<span class="text-[10px] text-[var(--color-text-muted)]">More</span>
+			</div>
+		</div>
+
+		<!-- Recent GitHub activity -->
+		<div class="rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] p-6">
+			<p class="text-xs text-[var(--color-text-muted)] uppercase tracking-wide mb-4">Recent GitHub activity</p>
+			{#if data.activity.length}
+				<div class="space-y-2">
+					{#each data.activity as event}
+						<div class="text-sm">
+							<span class="text-[var(--color-text-muted)]">{event.description}</span>
+							<span class="text-xs text-[var(--color-text-muted)] block mt-0.5">{new Date(event.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' })}</span>
+						</div>
+					{/each}
+				</div>
+			{:else}
+				<p class="text-sm text-[var(--color-text-muted)]">No recent activity.</p>
 			{/if}
 		</div>
 	</div>

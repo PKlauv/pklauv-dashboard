@@ -1,4 +1,5 @@
 import { supabase } from '$lib/supabase';
+import { getRecentActivity, getRepos, getContributionCalendar } from '$lib/github';
 
 export async function load({ url }) {
 	const range = url.searchParams.get('range') || '30d';
@@ -18,7 +19,12 @@ export async function load({ url }) {
 	let query = supabase.from('page_views').select('*');
 	if (since) query = query.gte('created_at', since);
 
-	const { data: views } = await query.order('created_at', { ascending: false });
+	const [{ data: views }, activity, repos, calendar] = await Promise.all([
+		query.order('created_at', { ascending: false }),
+		getRecentActivity(10),
+		getRepos(),
+		getContributionCalendar()
+	]);
 	const rows = views ?? [];
 
 	// Total views
@@ -66,12 +72,31 @@ export async function load({ url }) {
 		.slice(0, 10)
 		.map(([referrer, count]) => ({ referrer, count }));
 
+	// Active repos (pushed in last 30 days)
+	const thirtyDaysAgo = new Date(Date.now() - 30 * 86400000).toISOString();
+	const activeRepos = repos.filter((r) => r.pushedAt > thirtyDaysAgo);
+
+	// Top languages
+	const langCount: Record<string, number> = {};
+	for (const repo of repos) {
+		if (repo.language) {
+			langCount[repo.language] = (langCount[repo.language] || 0) + 1;
+		}
+	}
+	const topLanguages = Object.entries(langCount)
+		.sort((a, b) => b[1] - a[1])
+		.map(([language, count]) => ({ language, count }));
+
 	return {
 		totalViews,
 		bySite,
 		viewsOverTime,
 		topPages,
 		topReferrers,
-		range
+		range,
+		activity,
+		activeReposCount: activeRepos.length,
+		topLanguages,
+		calendar
 	};
 }
