@@ -9,7 +9,8 @@
 	<body data-sveltekit-preload-data="hover">
 		<div style="display: contents">%sveltekit.body%</div>
 		<script>
-			if (location.hostname !== "localhost" && location.hostname !== "127.0.0.1") {
+			if (location.hostname !== "localhost" && location.hostname !== "127.0.0.1" && !sessionStorage.getItem("pv")) {
+				sessionStorage.setItem("pv", "1");
 				fetch("https://fdtsktbzshndnwiububp.supabase.co/rest/v1/page_views", {
 					method: "POST",
 					headers: {
