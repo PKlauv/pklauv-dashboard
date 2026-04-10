@@ -15,8 +15,8 @@
 
 		<!-- Stats teaser card -->
 		<a href="/dashboard" class="group rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] p-6 transition-colors hover:bg-[var(--color-surface-hover)] hover:border-[var(--color-accent)]/30">
-			<p class="text-xs text-[var(--color-text-muted)] uppercase tracking-wide">Portfolio views</p>
-			<p class="text-3xl font-semibold mt-2 group-hover:text-[var(--color-accent)] transition-colors">&mdash;</p>
+			<p class="text-xs text-[var(--color-text-muted)] uppercase tracking-wide">Profile views</p>
+			<p class="text-3xl font-semibold mt-2 group-hover:text-[var(--color-accent)] transition-colors">{data.totalViews.toLocaleString()}</p>
 			<p class="text-xs text-[var(--color-text-muted)] mt-2">View dashboard &rarr;</p>
 		</a>
 
