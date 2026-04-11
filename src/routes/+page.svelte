@@ -4,17 +4,9 @@
 
 	let { data } = $props();
 	let graphScroll: HTMLDivElement;
-	let showToast = $state(false);
-
 	$effect(() => {
 		if (graphScroll) graphScroll.scrollLeft = graphScroll.scrollWidth;
 	});
-
-	function copyEmail() {
-		navigator.clipboard.writeText('per.kristian@lauvstad.com');
-		showToast = true;
-		setTimeout(() => showToast = false, 2000);
-	}
 
 	const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
@@ -182,45 +174,4 @@
 		</div>
 	</div>
 
-	<!-- Contact section -->
-	<section id="contact" class="mt-16 pt-10 border-t border-[var(--color-border)] text-center">
-		<p class="text-sm text-[var(--color-text-muted)]">
-			B.Sc. Computer Science, NCAA Soccer PSAC Conference Champion, Elite 8 National Tournament Participant	
-		</p>
-		<div class="flex items-center justify-center gap-4 mt-4 text-sm">
-			<a
-				href="https://github.com/PKLauv"
-				target="_blank"
-				rel="noopener"
-				class="text-[var(--color-text-muted)] hover:text-[var(--color-text)] transition-colors"
-			>
-				GitHub: <span class="text-[var(--color-text)]">@PKlauv</span>
-			</a>
-			<span class="text-[var(--color-border)]">&middot;</span>
-			<a
-				href="https://www.linkedin.com/in/per-kristian-lauvstad-89bba739b"
-				target="_blank"
-				rel="noopener"
-				class="text-[var(--color-text-muted)] hover:text-[var(--color-text)] transition-colors"
-			>
-				LinkedIn
-			</a>
-			<span class="text-[var(--color-border)]">&middot;</span>
-			<button
-				onclick={copyEmail}
-				class="text-[var(--color-text-muted)] hover:text-[var(--color-text)] transition-colors cursor-pointer"
-			>
-				email: <span class="text-[var(--color-text)]">per [dot] kristian [at] lauvstad [dot] com</span>
-			</button>
-		</div>
-	</section>
 </div>
-
-<!-- Toast notification -->
-{#if showToast}
-	<div class="fixed bottom-6 left-1/2 -translate-x-1/2 px-4 py-2 rounded-lg bg-[var(--color-surface)] border border-[var(--color-border)] text-sm text-[var(--color-text)] shadow-lg"
-		style="animation: toast-in 0.2s ease-out, toast-out 0.2s ease-in 1.8s forwards;"
-	>
-		Copied to clipboard
-	</div>
-{/if}
