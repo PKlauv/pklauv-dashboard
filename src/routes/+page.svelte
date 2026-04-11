@@ -1,9 +1,20 @@
 <script lang="ts">
+	import MatrixRain from '$lib/components/MatrixRain.svelte';
+	import { getTechColor } from '$lib/projects';
+
 	let { data } = $props();
 	let graphScroll: HTMLDivElement;
+	let showToast = $state(false);
+
 	$effect(() => {
 		if (graphScroll) graphScroll.scrollLeft = graphScroll.scrollWidth;
 	});
+
+	function copyEmail() {
+		navigator.clipboard.writeText('per.kristian@lauvstad.com');
+		showToast = true;
+		setTimeout(() => showToast = false, 2000);
+	}
 
 	const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
@@ -33,40 +44,66 @@
 	});
 </script>
 
+<!-- Hero section with matrix rain — breaks out to full viewport width -->
+<div class="relative -mx-4 sm:-mx-6 -mt-10 sm:-mt-12 mb-4" style="min-height: 500px;">
+	<MatrixRain />
+
+	<div class="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 pt-10 sm:pt-12">
+		<div class="grid grid-cols-1 md:grid-cols-3 gap-4 animate-card">
+			<!-- Intro card — spans 2 columns -->
+			<div class="md:col-span-2 rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)]/80 backdrop-blur-sm p-6">
+				<h1 class="text-2xl font-semibold tracking-tight">Per Kristian Lauvstad</h1>
+				<p class="text-[var(--color-text-muted)] mt-2">Computer Science Student &middot; NCAA Soccer Athlete &middot; Gannon University</p>
+				<p class="text-sm text-[var(--color-text-muted)] mt-3">
+					Building software at the intersection of sport and technology.
+				</p>
+			</div>
+
+			<!-- Stats teaser card -->
+			<a href="/dashboard" class="group rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)]/80 backdrop-blur-sm p-6 transition-colors hover:bg-[var(--color-surface-hover)] hover:border-[var(--color-accent)]/30">
+				<p class="text-xs text-[var(--color-text-muted)] uppercase tracking-wide">Profile views</p>
+				<p class="text-3xl font-semibold mt-2 group-hover:text-[var(--color-accent)] transition-colors">{data.totalViews.toLocaleString()}</p>
+				<p class="text-xs text-[var(--color-text-muted)] mt-2">View dashboard &rarr;</p>
+			</a>
+
+			<!-- Project cards -->
+			{#each data.featuredProjects as project}
+				<a
+					href="/projects/{project.slug}"
+					class="group rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)]/80 backdrop-blur-sm overflow-hidden transition-colors hover:bg-[var(--color-surface-hover)] hover:border-[var(--color-accent)]/30"
+				>
+					{#if project.image}
+						<div class="aspect-video overflow-hidden bg-[var(--color-bg)]">
+							<img
+								src={project.image}
+								alt={project.title}
+								loading="lazy"
+								class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+							/>
+						</div>
+					{:else}
+						<div class="aspect-video bg-gradient-to-br from-[var(--color-surface)] to-[var(--color-bg)] flex items-center justify-center">
+							<span class="text-3xl font-bold text-[var(--color-border)]">{project.title[0]}</span>
+						</div>
+					{/if}
+					<div class="p-4">
+						<h3 class="text-sm font-medium group-hover:text-[var(--color-accent)] transition-colors">{project.title}</h3>
+						<p class="text-xs text-[var(--color-text-muted)] mt-2 line-clamp-2">{project.description}</p>
+						<div class="flex flex-wrap gap-1.5 mt-3">
+							{#each project.tech as t}
+								<span class="text-[11px] px-2 py-0.5 rounded border {getTechColor(t)}">{t}</span>
+							{/each}
+						</div>
+					</div>
+				</a>
+			{/each}
+		</div>
+	</div>
+</div>
+
+<!-- Below the fold — no matrix rain -->
 <div class="max-w-5xl mx-auto">
 	<div class="grid grid-cols-1 md:grid-cols-3 gap-4 animate-card">
-		<!-- Intro card — spans 2 columns -->
-		<div class="md:col-span-2 rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] p-6">
-			<h1 class="text-2xl font-semibold tracking-tight">Per Kristian Lauvstad</h1>
-			<p class="text-[var(--color-text-muted)] mt-2">Computer Science Student &middot; NCAA Soccer Athlete &middot; Gannon University</p>
-			<p class="text-sm text-[var(--color-text-muted)] mt-3">
-				Building software at the intersection of sport and technology.
-			</p>
-		</div>
-
-		<!-- Stats teaser card -->
-		<a href="/dashboard" class="group rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] p-6 transition-colors hover:bg-[var(--color-surface-hover)] hover:border-[var(--color-accent)]/30">
-			<p class="text-xs text-[var(--color-text-muted)] uppercase tracking-wide">Profile views</p>
-			<p class="text-3xl font-semibold mt-2 group-hover:text-[var(--color-accent)] transition-colors">{data.totalViews.toLocaleString()}</p>
-			<p class="text-xs text-[var(--color-text-muted)] mt-2">View dashboard &rarr;</p>
-		</a>
-
-		<!-- Project cards -->
-		{#each data.featuredProjects as project}
-			<a
-				href="/projects/{project.slug}"
-				class="group rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] p-6 transition-colors hover:bg-[var(--color-surface-hover)] hover:border-[var(--color-accent)]/30"
-			>
-				<h3 class="font-medium group-hover:text-[var(--color-accent)] transition-colors">{project.title}</h3>
-				<p class="text-sm text-[var(--color-text-muted)] mt-2">{project.description}</p>
-				<div class="flex flex-wrap gap-2 mt-3">
-					{#each project.tech as t}
-						<span class="text-xs px-2 py-0.5 rounded-full bg-[var(--color-bg)] text-[var(--color-text-muted)]">{t}</span>
-					{/each}
-				</div>
-			</a>
-		{/each}
-
 		<!-- Latest blog post card -->
 		{#if data.latestPost}
 			<a href="/blog/{data.latestPost.slug}" class="group rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] p-6 transition-colors hover:bg-[var(--color-surface-hover)] hover:border-[var(--color-accent)]/30">
@@ -144,4 +181,46 @@
 			{/if}
 		</div>
 	</div>
+
+	<!-- Contact section -->
+	<section id="contact" class="mt-16 pt-10 border-t border-[var(--color-border)] text-center">
+		<p class="text-sm text-[var(--color-text-muted)]">
+			B.Sc. Computer Science, NCAA Soccer PSAC Conference Champion, Elite 8 National Tournament Participant	
+		</p>
+		<div class="flex items-center justify-center gap-4 mt-4 text-sm">
+			<a
+				href="https://github.com/PKLauv"
+				target="_blank"
+				rel="noopener"
+				class="text-[var(--color-text-muted)] hover:text-[var(--color-text)] transition-colors"
+			>
+				GitHub: <span class="text-[var(--color-text)]">@PKlauv</span>
+			</a>
+			<span class="text-[var(--color-border)]">&middot;</span>
+			<a
+				href="https://www.linkedin.com/in/per-kristian-lauvstad-89bba739b"
+				target="_blank"
+				rel="noopener"
+				class="text-[var(--color-text-muted)] hover:text-[var(--color-text)] transition-colors"
+			>
+				LinkedIn
+			</a>
+			<span class="text-[var(--color-border)]">&middot;</span>
+			<button
+				onclick={copyEmail}
+				class="text-[var(--color-text-muted)] hover:text-[var(--color-text)] transition-colors cursor-pointer"
+			>
+				email: <span class="text-[var(--color-text)]">per [dot] kristian [at] lauvstad [dot] com</span>
+			</button>
+		</div>
+	</section>
 </div>
+
+<!-- Toast notification -->
+{#if showToast}
+	<div class="fixed bottom-6 left-1/2 -translate-x-1/2 px-4 py-2 rounded-lg bg-[var(--color-surface)] border border-[var(--color-border)] text-sm text-[var(--color-text)] shadow-lg"
+		style="animation: toast-in 0.2s ease-out, toast-out 0.2s ease-in 1.8s forwards;"
+	>
+		Copied to clipboard
+	</div>
+{/if}
