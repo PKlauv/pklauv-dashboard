@@ -26,11 +26,11 @@ export interface Project {
 	title: string;
 	description: string;
 	tech: string[];
-	status: string;
+	source: 'open' | 'closed';
 	github: string;
 	live?: string;
-	featured: boolean;
 	image?: string;
+	firstCommit: string;
 }
 
 export async function getProjects(): Promise<Project[]> {
@@ -44,9 +44,5 @@ export async function getProjects(): Promise<Project[]> {
 		projects.push({ slug, ...metadata });
 	}
 
-	// Featured first, then alphabetical
-	return projects.sort((a, b) => {
-		if (a.featured !== b.featured) return a.featured ? -1 : 1;
-		return a.title.localeCompare(b.title);
-	});
+	return projects.sort((a, b) => a.title.localeCompare(b.title));
 }

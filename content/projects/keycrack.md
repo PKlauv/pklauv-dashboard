@@ -1,14 +1,14 @@
 ---
 title: KeyCrack
-description: Password awareness tool that educates users about the predictability of their passwords.
+description: Password awareness tool that educates users about the predictability of their passwords. It analyzes common patterns, dictionary words, and substitution tricks that make passwords easy to guess — helping users understand why their "clever" password might not be as secure as they think.
 tech:
   - JavaScript
   - Supabase
-status: complete
+source: open
 github: https://github.com/PKlauv/KeyCrack
 live: https://pklauv.github.io/KeyCrack/
-featured: true
 image: /images/projects/keycrack.gif
+firstCommit: "2026-02-24"
 ---
 
 KeyCrack is a password awareness tool designed to educate users about the predictability of their passwords. It analyzes common patterns, dictionary words, and substitution tricks that make passwords easy to guess — helping users understand why their "clever" password might not be as secure as they think.

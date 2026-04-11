@@ -1,14 +1,14 @@
 ---
 title: GestureMute
-description: macOS menu bar app that lets you mute, unmute, and adjust mic volume with hand gestures via your webcam.
+description: macOS menu bar app that lets you mute, unmute, and adjust mic volume with hand gestures via your webcam. A Python backend uses MediaPipe for real-time hand tracking, communicating with a native Swift menu bar app that handles macOS audio controls over a local bridge.
 tech:
   - Python
   - Swift
   - macOS
-status: active
+source: open
 github: https://github.com/PKlauv/GestureMute
-featured: true
 image: /images/projects/gesturemute.gif
+firstCommit: "2026-03-07"
 ---
 
 GestureMute is a macOS menu bar app that uses your webcam to detect hand gestures for controlling microphone state. Raise a hand to mute, lower it to unmute, or use specific gestures to adjust volume — all without touching your keyboard.

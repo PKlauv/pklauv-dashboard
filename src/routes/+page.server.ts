@@ -14,7 +14,7 @@ export async function load() {
 
 	return {
 		latestPost: posts[0] ?? null,
-		featuredProjects: projects.filter((p) => p.featured).slice(0, 3),
+		featuredProjects: projects.slice(0, 3),
 		totalViews: count ?? 0,
 		activity,
 		calendar: contributions

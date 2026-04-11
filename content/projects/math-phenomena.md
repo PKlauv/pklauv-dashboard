@@ -1,15 +1,15 @@
 ---
 title: Math-Phenomena
-description: Interactive visualizations of Lorenz attractors, Mandelbrot sets, Möbius strips, Klein bottles, and Sierpinski fractals.
+description: Interactive visualizations of Lorenz attractors, Mandelbrot sets, Möbius strips, Klein bottles, and Sierpinski fractals. Each visualization lets you explore parameters and see how they affect the output in real time, built with vanilla JavaScript, HTML5 Canvas, and Plotly.js.
 tech:
   - JavaScript
   - Canvas
   - Plotly
-status: complete
+source: open
 github: https://github.com/PKlauv/Math-Phenomena
 live: https://pklauv.github.io/Math-Phenomena/
-featured: true
 image: /images/projects/math-phenomena.gif
+firstCommit: "2026-02-21"
 ---
 
 Math-Phenomena is a collection of interactive mathematical visualizations that bring abstract concepts to life in the browser. Each visualization lets you explore the parameters and see how they affect the output in real time.
