@@ -17,6 +17,15 @@
 		gesturemute: 'GestureMute'
 	};
 
+	function countryFlag(code: string): string {
+		const offset = 0x1F1E6;
+		const A = 'A'.charCodeAt(0);
+		return String.fromCodePoint(
+			offset + code.charCodeAt(0) - A,
+			offset + code.charCodeAt(1) - A
+		);
+	}
+
 	const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
 	function contribLevel(count: number): string {
@@ -66,40 +75,55 @@
 		</div>
 	</div>
 
-	<div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+	<div class="grid grid-cols-1 md:grid-cols-3 gap-4 animate-card">
 		<!-- Total views -->
-		<div class="rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] p-6">
+		<div class="rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] p-6 transition-colors hover:bg-[var(--color-surface-hover)]">
 			<p class="text-xs text-[var(--color-text-muted)] uppercase tracking-wide">Total views</p>
 			<p class="text-4xl font-semibold mt-2">{data.totalViews}</p>
 		</div>
 
+		<!-- Unique visitors -->
+		<div class="rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] p-6 transition-colors hover:bg-[var(--color-surface-hover)]">
+			<p class="text-xs text-[var(--color-text-muted)] uppercase tracking-wide">Unique visitors</p>
+			<p class="text-4xl font-semibold mt-2">{data.uniqueVisitors}</p>
+			<p class="text-xs text-[var(--color-text-muted)] mt-2">Distinct sessions</p>
+		</div>
+
 		<!-- Views by site -->
-		<div class="md:col-span-2 rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] p-6">
+		<div class="rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] p-6 transition-colors hover:bg-[var(--color-surface-hover)]">
 			<p class="text-xs text-[var(--color-text-muted)] uppercase tracking-wide mb-4">Views by site</p>
-			<div class="flex gap-6">
+			<div class="space-y-2">
 				{#each Object.entries(data.bySite) as [site, count]}
-					<div>
-						<p class="text-2xl font-semibold">{count}</p>
-						<p class="text-xs text-[var(--color-text-muted)] mt-1">{siteLabels[site] || site}</p>
+					<div class="flex items-center justify-between text-sm">
+						<span class="text-[var(--color-text-muted)]">{siteLabels[site] || site}</span>
+						<span class="font-medium tabular-nums">{count}</span>
 					</div>
 				{/each}
 			</div>
 		</div>
 
 		<!-- Views over time chart -->
-		<div class="md:col-span-3 rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] p-6">
+		<div class="md:col-span-3 rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] p-6 transition-colors hover:bg-[var(--color-surface-hover)]">
 			<p class="text-xs text-[var(--color-text-muted)] uppercase tracking-wide mb-4">Views over time</p>
-			<div class="h-32 flex items-end gap-px">
-				{#each data.viewsOverTime as day}
+			<div class="h-36 flex items-end gap-px">
+				{#each data.viewsOverTime as day, i}
 					<div class="group relative flex-1 flex flex-col items-center justify-end h-full">
 						<div
 							class="w-full rounded-sm bg-[var(--color-accent)] transition-opacity opacity-60 hover:opacity-100"
-							style="height: {day.count ? (day.count / maxCount) * 100 : 0}%"
+							style="height: {day.count ? Math.max((day.count / maxCount) * 100, 4) : 0}%"
 						></div>
-						{#if day.count > 0}
-							<div class="absolute -top-6 bg-[var(--color-surface)] border border-[var(--color-border)] px-1.5 py-0.5 rounded text-[10px] text-[var(--color-text-muted)] opacity-0 group-hover:opacity-100 pointer-events-none whitespace-nowrap">
-								{day.date.slice(5)}: {day.count}
-							</div>
+						<div class="absolute -top-7 bg-[var(--color-bg)] border border-[var(--color-border)] px-1.5 py-0.5 rounded text-[10px] text-[var(--color-text-muted)] opacity-0 group-hover:opacity-100 pointer-events-none whitespace-nowrap z-10">
+							{day.date.slice(5)}: {day.count} view{day.count !== 1 ? 's' : ''}
+						</div>
+					</div>
+				{/each}
+			</div>
+			<div class="flex mt-2">
+				{#each data.viewsOverTime as day, i}
+					{@const step = data.viewsOverTime.length <= 14 ? 2 : data.viewsOverTime.length <= 31 ? 5 : 10}
+					<div class="flex-1 text-center">
+						{#if i % step === 0}
+							<span class="text-[9px] text-[var(--color-text-muted)]">{day.date.slice(5)}</span>
 						{/if}
 					</div>
 				{/each}
@@ -107,7 +131,7 @@
 		</div>
 
 		<!-- Top pages -->
-		<div class="md:col-span-2 rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] p-6">
+		<div class="md:col-span-2 rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] p-6 transition-colors hover:bg-[var(--color-surface-hover)]">
 			<p class="text-xs text-[var(--color-text-muted)] uppercase tracking-wide mb-4">Top pages</p>
 			{#if data.topPages.length}
 				<div class="space-y-2">
@@ -124,7 +148,7 @@
 		</div>
 
 		<!-- Top referrers -->
-		<div class="rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] p-6">
+		<div class="rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] p-6 transition-colors hover:bg-[var(--color-surface-hover)]">
 			<p class="text-xs text-[var(--color-text-muted)] uppercase tracking-wide mb-4">Top referrers</p>
 			{#if data.topReferrers.length}
 				<div class="space-y-2">
@@ -140,15 +164,49 @@
 			{/if}
 		</div>
 
+		<!-- Countries -->
+		<div class="rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] p-6 transition-colors hover:bg-[var(--color-surface-hover)]">
+			<p class="text-xs text-[var(--color-text-muted)] uppercase tracking-wide mb-4">Top countries</p>
+			{#if data.topCountries.length}
+				<div class="space-y-2">
+					{#each data.topCountries as c}
+						<div class="flex items-center justify-between text-sm">
+							<span class="text-[var(--color-text-muted)]">{countryFlag(c.country)} {c.country}</span>
+							<span class="font-medium tabular-nums">{c.count}</span>
+						</div>
+					{/each}
+				</div>
+			{:else}
+				<p class="text-sm text-[var(--color-text-muted)]">No country data yet.</p>
+			{/if}
+		</div>
+
+		<!-- Device types -->
+		<div class="rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] p-6 transition-colors hover:bg-[var(--color-surface-hover)]">
+			<p class="text-xs text-[var(--color-text-muted)] uppercase tracking-wide mb-4">Devices</p>
+			{#if data.devices.length}
+				<div class="space-y-2">
+					{#each data.devices as d}
+						<div class="flex items-center justify-between text-sm">
+							<span class="text-[var(--color-text-muted)] capitalize">{d.device}</span>
+							<span class="font-medium tabular-nums">{d.count}</span>
+						</div>
+					{/each}
+				</div>
+			{:else}
+				<p class="text-sm text-[var(--color-text-muted)]">No device data yet.</p>
+			{/if}
+		</div>
+
 		<!-- Active repos -->
-		<div class="rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] p-6">
+		<div class="rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] p-6 transition-colors hover:bg-[var(--color-surface-hover)]">
 			<p class="text-xs text-[var(--color-text-muted)] uppercase tracking-wide">Active repos</p>
 			<p class="text-4xl font-semibold mt-2">{data.activeReposCount}</p>
 			<p class="text-xs text-[var(--color-text-muted)] mt-2">Pushed in last 30 days</p>
 		</div>
 
 		<!-- Top languages -->
-		<div class="rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] p-6">
+		<div class="rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] p-6 transition-colors hover:bg-[var(--color-surface-hover)]">
 			<p class="text-xs text-[var(--color-text-muted)] uppercase tracking-wide mb-4">Top languages</p>
 			<div class="space-y-2">
 				{#each data.topLanguages as lang}
@@ -161,7 +219,7 @@
 		</div>
 
 		<!-- GitHub contribution graph -->
-		<div class="md:col-span-3 rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] p-6">
+		<div class="md:col-span-3 rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] p-6 transition-colors hover:bg-[var(--color-surface-hover)]">
 			<div class="flex items-center justify-between mb-3">
 				<p class="text-xs text-[var(--color-text-muted)] uppercase tracking-wide">GitHub contributions</p>
 				<p class="text-xs text-[var(--color-text-muted)]">{data.calendar.totalContributions} public contributions in the last year</p>
@@ -205,7 +263,7 @@
 		</div>
 
 		<!-- Recent GitHub activity -->
-		<div class="rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] p-6">
+		<div class="rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] p-6 transition-colors hover:bg-[var(--color-surface-hover)]">
 			<p class="text-xs text-[var(--color-text-muted)] uppercase tracking-wide mb-4">Recent GitHub activity</p>
 			{#if data.activity.length}
 				<div class="space-y-2">

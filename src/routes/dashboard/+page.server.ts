@@ -72,6 +72,33 @@ export async function load({ url }) {
 		.slice(0, 10)
 		.map(([referrer, count]) => ({ referrer, count }));
 
+	// Unique visitors (distinct session_ids)
+	const sessionIds = new Set(rows.filter((r) => r.session_id).map((r) => r.session_id));
+	const uniqueVisitors = sessionIds.size;
+
+	// Country breakdown
+	const byCountry: Record<string, number> = {};
+	for (const row of rows) {
+		if (row.country) {
+			byCountry[row.country] = (byCountry[row.country] || 0) + 1;
+		}
+	}
+	const topCountries = Object.entries(byCountry)
+		.sort((a, b) => b[1] - a[1])
+		.slice(0, 10)
+		.map(([country, count]) => ({ country, count }));
+
+	// Device breakdown
+	const byDevice: Record<string, number> = {};
+	for (const row of rows) {
+		if (row.device_type) {
+			byDevice[row.device_type] = (byDevice[row.device_type] || 0) + 1;
+		}
+	}
+	const devices = Object.entries(byDevice)
+		.sort((a, b) => b[1] - a[1])
+		.map(([device, count]) => ({ device, count }));
+
 	// Active repos (pushed in last 30 days)
 	const thirtyDaysAgo = new Date(Date.now() - 30 * 86400000).toISOString();
 	const activeRepos = repos.filter((r) => r.pushedAt > thirtyDaysAgo);
@@ -89,10 +116,13 @@ export async function load({ url }) {
 
 	return {
 		totalViews,
+		uniqueVisitors,
 		bySite,
 		viewsOverTime,
 		topPages,
 		topReferrers,
+		topCountries,
+		devices,
 		range,
 		activity,
 		activeReposCount: activeRepos.length,

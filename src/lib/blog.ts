@@ -23,7 +23,7 @@ export async function getPosts(): Promise<Post[]> {
 			const body = raw.replace(/^---[\s\S]*?---/, '');
 			const words = body.split(/\s+/).filter(Boolean).length;
 			const readTime = Math.max(1, Math.ceil(words / 200));
-			posts.push({ slug, readTime, tags: metadata.tags ?? [], ...metadata });
+			posts.push({ ...metadata, slug, readTime, tags: metadata.tags ?? [] });
 		}
 	}
 
