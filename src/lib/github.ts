@@ -106,8 +106,11 @@ function describeEvent(event: GitHubEvent): string {
 	const repo = event.repo.name.replace(`${USERNAME}/`, '');
 	switch (event.type) {
 		case 'PushEvent': {
-			const count = event.payload.size ?? event.payload.commits?.length ?? 0;
-			return `Pushed ${count} commit${count !== 1 ? 's' : ''} to ${repo}`;
+			const count = event.payload.size ?? event.payload.commits?.length;
+			if (count) {
+				return `Pushed ${count} commit${count !== 1 ? 's' : ''} to ${repo}`;
+			}
+			return `Pushed to ${repo}`;
 		}
 		case 'CreateEvent':
 			return `Created ${event.payload.ref_type ?? 'repository'} ${event.payload.ref ? `${event.payload.ref} in ` : ''}${repo}`;
