@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { getTechColor } from '$lib/projects';
 	let { data } = $props();
 </script>
 
@@ -10,6 +11,11 @@
 	<a href="/projects" class="text-sm text-[var(--color-text-muted)] hover:text-[var(--color-text)] transition-colors">&larr; Back to projects</a>
 
 	<article class="mt-8">
+		{#if data.image}
+			<div class="rounded-xl overflow-hidden border border-[var(--color-border)] mb-8">
+				<img src={data.image} alt={data.title} class="w-full" />
+			</div>
+		{/if}
 		<header class="mb-8">
 			<div class="flex items-center gap-3">
 				<h1 class="text-2xl font-semibold tracking-tight">{data.title}</h1>
@@ -18,9 +24,9 @@
 					: 'bg-[var(--color-bg)] text-[var(--color-text-muted)]'}">{data.status}</span>
 			</div>
 			<p class="text-[var(--color-text-muted)] mt-2">{data.description}</p>
-			<div class="flex flex-wrap gap-2 mt-4">
+			<div class="flex flex-wrap gap-1.5 mt-4">
 				{#each data.tech as t}
-					<span class="text-xs px-2 py-0.5 rounded-full bg-[var(--color-bg)] text-[var(--color-text-muted)]">{t}</span>
+					<span class="text-[11px] px-2 py-0.5 rounded border {getTechColor(t)}">{t}</span>
 				{/each}
 			</div>
 			<div class="flex gap-4 mt-4">

@@ -9,6 +9,7 @@ status: complete
 github: https://github.com/PKlauv/Math-Phenomena
 live: https://pklauv.github.io/Math-Phenomena/
 featured: true
+image: /images/projects/math-phenomena.gif
 ---
 
 Math-Phenomena is a collection of interactive mathematical visualizations that bring abstract concepts to life in the browser. Each visualization lets you explore the parameters and see how they affect the output in real time.

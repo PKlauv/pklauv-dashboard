@@ -8,6 +8,7 @@ status: complete
 github: https://github.com/PKlauv/KeyCrack
 live: https://pklauv.github.io/KeyCrack/
 featured: true
+image: /images/projects/keycrack.gif
 ---
 
 KeyCrack is a password awareness tool designed to educate users about the predictability of their passwords. It analyzes common patterns, dictionary words, and substitution tricks that make passwords easy to guess — helping users understand why their "clever" password might not be as secure as they think.

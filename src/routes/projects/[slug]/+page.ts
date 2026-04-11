@@ -17,6 +17,7 @@ export async function load({ params }) {
 			status: string;
 			github: string;
 			live?: string;
+			image?: string;
 		};
 	};
 
