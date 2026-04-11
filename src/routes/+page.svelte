@@ -34,7 +34,7 @@
 </script>
 
 <div class="max-w-5xl mx-auto">
-	<div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+	<div class="grid grid-cols-1 md:grid-cols-3 gap-4 animate-card">
 		<!-- Intro card — spans 2 columns -->
 		<div class="md:col-span-2 rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] p-6">
 			<h1 class="text-2xl font-semibold tracking-tight">Per Kristian Lauvstad</h1>
