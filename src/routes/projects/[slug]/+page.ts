@@ -14,10 +14,11 @@ export async function load({ params }) {
 			title: string;
 			description: string;
 			tech: string[];
-			status: string;
+			source: 'open' | 'closed';
 			github: string;
 			live?: string;
 			image?: string;
+			firstCommit: string;
 		};
 	};
 
