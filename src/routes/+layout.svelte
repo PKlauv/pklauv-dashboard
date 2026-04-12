@@ -18,7 +18,7 @@
 
 <svelte:head>
 	<link rel="icon" href={favicon} />
-	<title>PK Lauvstad</title>
+	<title>PK Lauvstad // Computer Science</title>
 </svelte:head>
 
 <div class="min-h-dvh flex flex-col">

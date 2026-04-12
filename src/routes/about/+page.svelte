@@ -1,5 +1,5 @@
 <svelte:head>
-	<title>About — PK Lauvstad</title>
+	<title>Inactive page</title>
 </svelte:head>
 
 <div class="max-w-2xl mx-auto">

@@ -10,7 +10,7 @@
 </script>
 
 <svelte:head>
-	<title>Projects — PK Lauvstad</title>
+	<title>Projects // PK Lauvstad</title>
 </svelte:head>
 
 <div class="max-w-5xl mx-auto">
