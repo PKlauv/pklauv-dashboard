@@ -13,7 +13,7 @@
 	<title>{data.title} — PK Lauvstad</title>
 </svelte:head>
 
-<div class="max-w-2xl mx-auto">
+<div class="max-w-4xl mx-auto">
 	<a href="/projects" class="text-sm text-[var(--color-text-muted)] hover:text-[var(--color-text)] transition-colors">&larr; Back to projects</a>
 
 	<article class="mt-8">
@@ -55,7 +55,7 @@
 			</div>
 		</header>
 
-		<div class="prose prose-invert max-w-none prose-headings:font-semibold prose-headings:tracking-tight prose-a:text-[var(--color-accent)] prose-a:no-underline hover:prose-a:underline">
+		<div class="prose prose-invert max-w-none prose-headings:font-semibold prose-headings:tracking-tight prose-a:text-[var(--color-accent)] prose-a:no-underline prose-a:hover:underline">
 			<data.content />
 		</div>
 	</article>

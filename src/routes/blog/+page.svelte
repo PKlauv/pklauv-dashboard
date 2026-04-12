@@ -6,7 +6,7 @@
 	<title>Blog — PK Lauvstad</title>
 </svelte:head>
 
-<div class="max-w-2xl mx-auto">
+<div class="max-w-4xl mx-auto">
 <h1 class="text-2xl font-semibold mb-8 tracking-tight">PKLauv's Blog</h1>
 
 {#if data.posts.length === 0}
