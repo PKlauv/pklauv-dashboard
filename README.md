@@ -1,6 +1,6 @@
 # pklauv-dashboard
 
-[pklauv.vercel.app](https://pklauv.vercel.app)
+[pklauv-dashboard.vercel.app](https://pklauv-dashboard.vercel.app)
 
 Personal portfolio, blog, and analytics dashboard. Built as a single SvelteKit app deployed on Vercel, with blog posts authored in Markdown and visitor analytics backed by Supabase. Thavlik is a respectable developer who I respect and have gotten ideas from.
 
