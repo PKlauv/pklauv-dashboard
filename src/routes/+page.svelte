@@ -9,6 +9,7 @@
 	});
 
 	const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+	const fullMonths = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
 	function contribLevel(count: number): string {
 		if (count === 0) return 'bg-[var(--color-border)]';
@@ -17,6 +18,57 @@
 		if (count <= 9) return 'bg-green-500';
 		return 'bg-green-400';
 	}
+
+	function formatContribDate(dateStr: string): string {
+		const d = new Date(dateStr + 'T00:00:00');
+		const day = d.getDate();
+		const suffix = day >= 11 && day <= 13 ? 'th' : ['th','st','nd','rd','th','th','th','th','th','th'][day % 10];
+		return `${fullMonths[d.getMonth()]} ${day}${suffix}`;
+	}
+
+	let tooltipEl: HTMLDivElement | null = null;
+	let hideTimer: ReturnType<typeof setTimeout>;
+
+	function ensureTooltip(): HTMLDivElement {
+		if (tooltipEl) return tooltipEl;
+		tooltipEl = document.createElement('div');
+		Object.assign(tooltipEl.style, {
+			position: 'fixed', pointerEvents: 'none', zIndex: '9999',
+			padding: '4px 8px', borderRadius: '4px', fontSize: '12px', fontWeight: '500',
+			whiteSpace: 'nowrap', background: '#24292f', color: '#fff',
+			border: '1px solid #454d56', display: 'none',
+			transform: 'translate(-50%, calc(-100% - 8px))'
+		});
+		const caret = document.createElement('div');
+		Object.assign(caret.style, {
+			position: 'absolute', left: '50%', bottom: '-4px',
+			width: '8px', height: '8px', background: '#24292f',
+			border: '1px solid #454d56', borderTop: 'none', borderLeft: 'none',
+			transform: 'translateX(-50%) rotate(45deg)'
+		});
+		tooltipEl.appendChild(document.createTextNode(''));
+		tooltipEl.appendChild(caret);
+		document.body.appendChild(tooltipEl);
+		return tooltipEl;
+	}
+
+	function showTooltip(e: MouseEvent, day: { count: number; date: string }) {
+		clearTimeout(hideTimer);
+		const el = ensureTooltip();
+		const rect = (e.currentTarget as HTMLElement).getBoundingClientRect();
+		el.style.left = `${rect.left + rect.width / 2}px`;
+		el.style.top = `${rect.top}px`;
+		el.childNodes[0].textContent = `${day.count} contribution${day.count !== 1 ? 's' : ''} on ${formatContribDate(day.date)}.`;
+		el.style.display = 'block';
+	}
+
+	function hideTooltip() {
+		hideTimer = setTimeout(() => { if (tooltipEl) tooltipEl.style.display = 'none'; }, 80);
+	}
+
+	$effect(() => {
+		return () => { tooltipEl?.remove(); };
+	});
 
 	// Compute month labels from calendar weeks
 	const monthLabels = $derived.by(() => {
@@ -119,30 +171,32 @@
 			</div>
 
 			<div class="overflow-x-auto" bind:this={graphScroll}>
-				<div class="inline-grid gap-[3px]" style="grid-template-columns: auto repeat({data.calendar.weeks.length}, 1fr);">
+				<div class="inline-grid gap-x-[2px] gap-y-[2px]" style="grid-template-columns: auto repeat({data.calendar.weeks.length}, 10px);">
 					<!-- Month labels row -->
 					<div></div>
 					{#each data.calendar.weeks as week, i}
 						{@const label = monthLabels.find((m) => m.col === i)}
-						<div class="text-[10px] text-[var(--color-text-muted)] h-3">
+						<div class="text-[10px] text-[var(--color-text-muted)] h-3 overflow-visible whitespace-nowrap">
 							{label ? label.label : ''}
 						</div>
 					{/each}
 
 					<!-- Day rows (Sun=0 through Sat=6) -->
 					{#each [0, 1, 2, 3, 4, 5, 6] as dayIndex}
-						<div class="text-[10px] text-[var(--color-text-muted)] pr-2 h-[11px] flex items-center">
+						<div class="text-[10px] text-[var(--color-text-muted)] pr-2 h-[10px] flex items-center">
 							{dayIndex === 1 ? 'Mon' : dayIndex === 3 ? 'Wed' : dayIndex === 5 ? 'Fri' : ''}
 						</div>
 						{#each data.calendar.weeks as week}
 							{@const day = week.days.find((d) => d.weekday === dayIndex)}
 							{#if day}
 								<div
-									class="w-[11px] h-[11px] rounded-sm {contribLevel(day.count)}"
-									title="{day.count} contribution{day.count !== 1 ? 's' : ''} on {day.date}"
+									class="w-[10px] h-[10px] rounded-[1px] {contribLevel(day.count)}"
+									role="presentation"
+									onmouseenter={(e) => showTooltip(e, day)}
+									onmouseleave={hideTooltip}
 								></div>
 							{:else}
-								<div class="w-[11px] h-[11px]"></div>
+								<div class="w-[10px] h-[10px]"></div>
 							{/if}
 						{/each}
 					{/each}
@@ -152,11 +206,11 @@
 			<!-- Legend -->
 			<div class="flex items-center justify-end gap-1 mt-3">
 				<span class="text-[10px] text-[var(--color-text-muted)]">Less</span>
-				<div class="w-[11px] h-[11px] rounded-sm bg-[var(--color-border)]"></div>
-				<div class="w-[11px] h-[11px] rounded-sm bg-green-900"></div>
-				<div class="w-[11px] h-[11px] rounded-sm bg-green-700"></div>
-				<div class="w-[11px] h-[11px] rounded-sm bg-green-500"></div>
-				<div class="w-[11px] h-[11px] rounded-sm bg-green-400"></div>
+				<div class="w-[10px] h-[10px] rounded-[1px] bg-[var(--color-border)]"></div>
+				<div class="w-[10px] h-[10px] rounded-[1px] bg-green-900"></div>
+				<div class="w-[10px] h-[10px] rounded-[1px] bg-green-700"></div>
+				<div class="w-[10px] h-[10px] rounded-[1px] bg-green-500"></div>
+				<div class="w-[10px] h-[10px] rounded-[1px] bg-green-400"></div>
 				<span class="text-[10px] text-[var(--color-text-muted)]">More</span>
 			</div>
 
