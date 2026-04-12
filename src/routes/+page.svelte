@@ -96,10 +96,12 @@
 		<div class="grid grid-cols-1 md:grid-cols-3 gap-4 animate-card">
 			<!-- Intro card — spans 2 columns -->
 			<div class="md:col-span-2 rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)]/80 backdrop-blur-sm p-6">
-				<h1 class="text-2xl font-semibold tracking-tight">Per Kristian Lauvstad</h1>
-				<p class="text-[var(--color-text-muted)] mt-2">Computer Science Student &middot; NCAA Soccer Athlete &middot; Gannon University</p>
+				<h1 class="text-2xl font-semibold tracking-tight">Computer Science | NCAA Soccer Athlete</h1>
+				<p class="text-[var(--color-text-muted)] mt-2">Per Kristian Lauvstad</p>
 				<p class="text-sm text-[var(--color-text-muted)] mt-3">
-					Building software at the intersection of sport and technology.
+					I'm a CS student on the early stages of the Software Engineering/Data Science track with a parallel career as a NCAA Soccer Athlete. 
+					<br><br>
+					Interested in something I'm building? Let's talk about it!
 				</p>
 			</div>
 
@@ -151,7 +153,7 @@
 		<!-- Latest blog post card -->
 		{#if data.latestPost}
 			<a href="/blog/{data.latestPost.slug}" class="group rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] p-6 transition-colors hover:bg-[var(--color-surface-hover)] hover:border-[var(--color-accent)]/30">
-				<p class="text-xs text-[var(--color-text-muted)] uppercase tracking-wide">Latest post</p>
+				<p class="text-xs text-[var(--color-text-muted)] uppercase tracking-wide">Latest post from the blog</p>
 				<h3 class="font-medium mt-2 group-hover:text-[var(--color-accent)] transition-colors">{data.latestPost.title}</h3>
 				<p class="text-sm text-[var(--color-text-muted)] mt-2">{data.latestPost.excerpt}</p>
 				<span class="text-xs text-[var(--color-text-muted)] mt-3 block">{data.latestPost.date}</span>

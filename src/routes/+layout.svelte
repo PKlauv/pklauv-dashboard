@@ -48,7 +48,7 @@
 
 	<footer id="contact" class="px-4 sm:px-6 pt-10 pb-8 border-t border-[var(--color-border)] text-center">
 		<p class="text-sm text-[var(--color-text-muted)]">
-			B.Sc. Computer Science, NCAA Soccer PSAC Conference Champion, Elite 8 National Tournament Participant
+			B.Sc. Computer Science (In Progress), NCAA Soccer PSAC Conference Champion, Elite 8 National Tournament Participant
 		</p>
 		<div class="flex items-center justify-center flex-wrap gap-x-4 gap-y-2 mt-4 text-sm">
 			<a
