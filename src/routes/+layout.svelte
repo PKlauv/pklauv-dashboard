@@ -55,7 +55,7 @@
 				href="https://github.com/PKLauv"
 				target="_blank"
 				rel="noopener"
-				class="text-[var(--color-text-muted)] hover:text-[var(--color-text)] transition-colors"
+				class="text-[#5eead4] hover:underline transition-colors"
 			>
 				GitHub: <span class="text-[var(--color-text)]">@PKlauv</span>
 			</a>
@@ -64,21 +64,21 @@
 				href="https://www.linkedin.com/in/per-kristian-lauvstad-89bba739b"
 				target="_blank"
 				rel="noopener"
-				class="text-[var(--color-text-muted)] hover:text-[var(--color-text)] transition-colors"
+				class="text-[#5eead4] hover:underline transition-colors"
 			>
 				LinkedIn
 			</a>
 			<span class="text-[var(--color-border)]">&middot;</span>
 			<button
 				onclick={copyEmail}
-				class="text-[var(--color-text-muted)] hover:text-[var(--color-text)] transition-colors cursor-pointer"
+				class="text-[#5eead4] hover:underline transition-colors cursor-pointer"
 			>
 				email: <span class="text-[var(--color-text)]">per [dot] kristian [at] lauvstad [dot] com</span>
 			</button>
 			<span class="text-[var(--color-border)]">&middot;</span>
 			<button
 				onclick={scrollToTop}
-				class="text-[var(--color-text-muted)] hover:text-[var(--color-text)] hover:underline transition-colors cursor-pointer"
+				class="text-[#5eead4] hover:underline transition-colors cursor-pointer"
 			>
 				Back to top
 			</button>
