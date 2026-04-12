@@ -7,7 +7,8 @@ tech:
   - macOS
 source: open
 github: https://github.com/PKlauv/GestureMute
-image: /images/projects/gesturemute.gif
+image: /images/projects/gesturemute.mp4
+poster: /images/projects/gesturemute.jpg
 firstCommit: "2026-03-07"
 ---
 

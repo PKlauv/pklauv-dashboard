@@ -8,7 +8,8 @@ tech:
 source: open
 github: https://github.com/PKlauv/Math-Phenomena
 live: https://pklauv.github.io/Math-Phenomena/
-image: /images/projects/math-phenomena.gif
+image: /images/projects/math-phenomena.mp4
+poster: /images/projects/math-phenomena.jpg
 firstCommit: "2026-02-21"
 ---
 

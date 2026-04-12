@@ -30,6 +30,7 @@ export interface Project {
 	github: string;
 	live?: string;
 	image?: string;
+	poster?: string;
 	firstCommit: string;
 }
 

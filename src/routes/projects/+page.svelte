@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { getTechColor } from '$lib/projects';
+	import ProjectMedia from '$lib/components/ProjectMedia.svelte';
 	let { data } = $props();
 
 	function formatDate(dateStr: string): string {
@@ -36,10 +37,10 @@
 					>
 						{#if project.image}
 							<div class="aspect-[16/10] overflow-hidden bg-[var(--color-bg)]">
-								<img
+								<ProjectMedia
 									src={project.image}
+									poster={project.poster}
 									alt={project.title}
-									loading="lazy"
 									class="w-full h-full object-cover"
 								/>
 							</div>

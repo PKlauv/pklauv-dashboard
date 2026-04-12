@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { getTechColor } from '$lib/projects';
+	import ProjectMedia from '$lib/components/ProjectMedia.svelte';
 	let { data } = $props();
 
 	function formatDate(dateStr: string): string {
@@ -24,7 +25,7 @@
 				class="block mb-8"
 			>
 				<div class="rounded-xl overflow-hidden border-2 border-[var(--color-border)] hover:border-emerald-400 transition-colors">
-					<img src={data.image} alt={data.title} class="w-full max-h-[420px] object-contain mx-auto" />
+					<ProjectMedia src={data.image} poster={data.poster} alt={data.title} class="w-full max-h-[420px] object-contain mx-auto" />
 				</div>
 			</a>
 		{/if}

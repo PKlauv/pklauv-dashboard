@@ -1,5 +1,6 @@
 <script lang="ts">
 	import MatrixRain from '$lib/components/MatrixRain.svelte';
+	import ProjectMedia from '$lib/components/ProjectMedia.svelte';
 	import { getTechColor } from '$lib/projects';
 
 	let { data } = $props();
@@ -120,10 +121,10 @@
 				>
 					{#if project.image}
 						<div class="aspect-video overflow-hidden bg-[var(--color-bg)]">
-							<img
+							<ProjectMedia
 								src={project.image}
+								poster={project.poster}
 								alt={project.title}
-								loading="lazy"
 								class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
 							/>
 						</div>

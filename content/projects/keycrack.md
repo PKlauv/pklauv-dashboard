@@ -7,7 +7,8 @@ tech:
 source: open
 github: https://github.com/PKlauv/KeyCrack
 live: https://pklauv.github.io/KeyCrack/
-image: /images/projects/keycrack.gif
+image: /images/projects/keycrack.mp4
+poster: /images/projects/keycrack.jpg
 firstCommit: "2026-02-24"
 ---
 
