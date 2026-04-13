@@ -23,7 +23,7 @@
 			sessionStorage.setItem('_pk_sid', sid);
 		}
 
-		fetch('https://pklauv.vercel.app/api/track', {
+		fetch('https://pklauv-dashboard.vercel.app/api/track', {
 			method: 'POST',
 			headers: { 'Content-Type': 'application/json' },
 			body: JSON.stringify({
