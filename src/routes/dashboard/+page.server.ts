@@ -1,7 +1,14 @@
-import { supabase } from '$lib/supabase';
+import { createSupabaseServerClient } from '$lib/supabase';
 import { getRecentActivity, getRepos, getContributionCalendar } from '$lib/github';
+import { env } from '$env/dynamic/private';
 
-export async function load({ url }) {
+export async function load({ url, locals, cookies }) {
+	if (!locals.user || locals.user.id !== env.ALLOWED_USER_ID) {
+		return { authenticated: false as const };
+	}
+
+	const supabase = createSupabaseServerClient(cookies);
+
 	const range = url.searchParams.get('range') || '30d';
 
 	const daysMap: Record<string, number | null> = {
@@ -115,6 +122,7 @@ export async function load({ url }) {
 		.map(([language, count]) => ({ language, count }));
 
 	return {
+		authenticated: true as const,
 		totalViews,
 		uniqueVisitors,
 		bySite,

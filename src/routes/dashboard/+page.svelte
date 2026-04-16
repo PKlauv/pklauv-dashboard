@@ -8,7 +8,7 @@
 		{ value: 'all', label: 'All time' }
 	];
 
-	const maxCount = $derived(Math.max(...data.viewsOverTime.map((d) => d.count), 1));
+	const maxCount = $derived(Math.max(...(data.authenticated ? data.viewsOverTime.map((d) => d.count) : []), 1));
 
 	const siteLabels: Record<string, string> = {
 		portfolio: 'Portfolio',
@@ -91,6 +91,7 @@
 	});
 
 	const monthLabels = $derived.by(() => {
+		if (!data.authenticated) return [] as { label: string; col: number }[];
 		const labels: { label: string; col: number }[] = [];
 		let lastMonth = -1;
 		for (let i = 0; i < data.calendar.weeks.length; i++) {
@@ -107,6 +108,13 @@
 	});
 </script>
 
+{#if !data.authenticated}
+	<div class="max-w-5xl mx-auto flex flex-col items-center justify-center min-h-[60vh] gap-4">
+		<h1 class="text-2xl font-semibold">Dashboard</h1>
+		<p class="text-[var(--color-text-muted)]">You must be signed in to view this page.</p>
+		<a href="/auth/login" class="px-4 py-2 bg-[var(--color-accent)] text-white rounded-md text-sm hover:opacity-90 transition-opacity">Sign in with GitHub</a>
+	</div>
+{:else}
 <div class="max-w-5xl mx-auto">
 	<div class="flex items-center justify-between mb-6">
 		<h1 class="text-2xl font-semibold">Dashboard</h1>
@@ -332,3 +340,4 @@
 		</div>
 	</div>
 </div>
+{/if}
