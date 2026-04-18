@@ -111,7 +111,7 @@
 {#if !data.authenticated}
 	<div class="max-w-md mx-auto flex flex-col items-center justify-center min-h-[60vh] gap-4 text-center">
 		<h1 class="text-2xl font-semibold">Dashboard</h1>
-		<p class="text-[var(--color-text-muted)]">Sign in to view analytics and activity data.</p>
+		<p class="text-[var(--color-text-muted)]">This dashboard is private. Login is restricted to the site owner.</p>
 		<form method="POST" action="/auth/login">
 			<button
 				type="submit"
