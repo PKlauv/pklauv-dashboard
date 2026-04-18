@@ -1,13 +1,11 @@
-import { createSupabaseServerClient } from '$lib/supabase';
+import { supabase } from '$lib/supabase';
 import { getRecentActivity, getRepos, getContributionCalendar } from '$lib/github';
 import { env } from '$env/dynamic/private';
 
-export async function load({ url, locals, cookies }) {
+export async function load({ url, locals }) {
 	if (!locals.user || locals.user.id !== env.ALLOWED_USER_ID) {
 		return { authenticated: false as const };
 	}
-
-	const supabase = createSupabaseServerClient(cookies);
 
 	const range = url.searchParams.get('range') || '30d';
 
