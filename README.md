@@ -13,6 +13,10 @@ Personal portfolio, blog, and analytics dashboard. Built as a single SvelteKit a
 - Supabase (Postgres + auth)
 - Vercel (hosting)
 
+## Analytics
+
+Custom privacy-first analytics — no third-party trackers, no cookies, no IP storage. A lightweight tracking snippet collects page views across the portfolio and external projects, storing them in Supabase. The private dashboard (GitHub OAuth, single-user) surfaces views over time, top pages, referrers, devices, countries, and GitHub activity.
+
 ## License
 
 MIT — see [LICENSE](./LICENSE).
