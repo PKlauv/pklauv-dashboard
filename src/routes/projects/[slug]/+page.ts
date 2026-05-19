@@ -1,4 +1,5 @@
 import { error } from '@sveltejs/kit';
+import type { Project } from '$lib/projects';
 
 export async function load({ params }) {
 	const modules = import.meta.glob('/content/projects/*.md');
@@ -10,17 +11,7 @@ export async function load({ params }) {
 
 	const module = (await modules[path]()) as {
 		default: import('svelte').Component;
-		metadata: {
-			title: string;
-			description: string;
-			tech: string[];
-			source: 'open' | 'closed';
-			github: string;
-			live?: string;
-			image?: string;
-			poster?: string;
-			firstCommit: string;
-		};
+		metadata: Omit<Project, 'slug'>;
 	};
 
 	return {
