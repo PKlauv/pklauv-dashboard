@@ -109,20 +109,66 @@
 </script>
 
 {#if !data.authenticated}
-	<div class="max-w-md mx-auto flex flex-col items-center justify-center min-h-[60vh] gap-4 text-center">
+	<div class="max-w-2xl mx-auto py-10 sm:py-14">
 		<h1 class="text-2xl font-semibold">Dashboard</h1>
-		<p class="text-[var(--color-text-muted)]">This dashboard is private. Login is restricted to the site owner.</p>
-		<form method="POST" action="/auth/login">
-			<button
-				type="submit"
-				class="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-[var(--color-accent)] text-white font-medium hover:opacity-90 transition-opacity"
+		<p class="text-[var(--color-text-muted)] mt-2">
+			This is my personal analytics page. The login only works for me — but here's what's behind it.
+		</p>
+
+		<section class="mt-10">
+			<h2 class="text-xs uppercase tracking-wide text-[var(--color-text-muted)]">Why this exists</h2>
+			<p class="mt-3 text-sm text-[var(--color-text)] leading-relaxed">
+				A working portfolio analytics tool — visitor counts, where they come from, what they read, plus my GitHub activity in one place. The data is mine; nobody else gets to look at it. Half the reason this page exists is that I wanted the numbers; the other half is that building it taught me more than any tutorial would have.
+			</p>
+		</section>
+
+		<section class="mt-10">
+			<h2 class="text-xs uppercase tracking-wide text-[var(--color-text-muted)]">Behind the scenes</h2>
+			<ul class="mt-3 space-y-3 text-sm text-[var(--color-text-muted)] leading-relaxed">
+				<li>
+					<span class="text-[var(--color-text)]">Privacy-first tracking script (~1KB)</span>
+					— fires from any of my projects, no IP storage, country derived from Vercel's edge headers.
+				</li>
+				<li>
+					<span class="text-[var(--color-text)]">Supabase with Row-Level Security</span>
+					on the <code class="text-xs px-1 py-0.5 rounded bg-[var(--color-surface)]">page_views</code> table — the anon key reads aggregates only, nothing personal leaks even if a key did.
+				</li>
+				<li>
+					<span class="text-[var(--color-text)]">GitHub OAuth via <code class="text-xs px-1 py-0.5 rounded bg-[var(--color-surface)]">@supabase/ssr</code></span>
+					with cookie-based sessions; gated server-side by user ID, not just by route.
+				</li>
+				<li>
+					<span class="text-[var(--color-text)]">SvelteKit hooks + load functions</span>
+					for SSR auth state, GitHub GraphQL for the contribution calendar.
+				</li>
+				<li>
+					<span class="text-[var(--color-text)]">Tailwind v4 CSS-config</span>,
+					bento grid layout, custom theming.
+				</li>
+			</ul>
+		</section>
+
+		<div class="mt-10 flex flex-wrap items-center gap-3">
+			<form method="POST" action="/auth/login">
+				<button
+					type="submit"
+					class="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-[var(--color-accent)] text-white text-sm font-medium hover:opacity-90 transition-opacity"
+				>
+					<svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+						<path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+					</svg>
+					Sign in with GitHub
+				</button>
+			</form>
+			<a
+				href="https://github.com/PKlauv/pklauv-dashboard"
+				target="_blank"
+				rel="noopener"
+				class="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg border border-[var(--color-border)] text-sm text-[var(--color-text-muted)] hover:text-[var(--color-text)] hover:border-[var(--color-accent)]/30 transition-colors"
 			>
-				<svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-					<path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
-				</svg>
-				Sign in with GitHub
-			</button>
-		</form>
+				View source on GitHub →
+			</a>
+		</div>
 	</div>
 {:else}
 <div class="max-w-5xl mx-auto">

@@ -33,11 +33,28 @@
 			<a href="/blog" class="text-[var(--color-text-muted)] hover:text-[var(--color-text)] transition-colors whitespace-nowrap">
 				Blog
 			</a>
-			<a href="/dashboard" class="text-[var(--color-text-muted)] hover:text-[var(--color-text)] transition-colors whitespace-nowrap">
-				Dashboard
-			</a>
 			<a href="#contact" class="text-[var(--color-text-muted)] hover:text-[var(--color-text)] transition-colors whitespace-nowrap">
 				Contact
+			</a>
+			<a
+				href="/dashboard"
+				aria-label="Dashboard (private)"
+				class="inline-flex items-center gap-1.5 text-[var(--color-text-muted)] hover:text-[var(--color-text)] transition-colors whitespace-nowrap"
+			>
+				<svg
+					class="w-3 h-3"
+					viewBox="0 0 24 24"
+					fill="none"
+					stroke="currentColor"
+					stroke-width="2"
+					stroke-linecap="round"
+					stroke-linejoin="round"
+					aria-hidden="true"
+				>
+					<rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+					<path d="M7 11V7a5 5 0 0110 0v4" />
+				</svg>
+				Dashboard
 			</a>
 		</div>
 	</nav>
