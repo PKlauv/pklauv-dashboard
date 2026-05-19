@@ -37,6 +37,7 @@ export interface Project {
 	live?: string;
 	image?: string;
 	poster?: string;
+	imageFit?: 'cover' | 'contain';
 	firstCommit: string;
 	subprojects?: Subproject[];
 }

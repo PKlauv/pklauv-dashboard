@@ -6,6 +6,8 @@ tech:
   - Streamlit
   - AI
 source: open
+image: /images/projects/codepath-cert.jpg
+imageFit: contain
 firstCommit: "2026-03-15"
 subprojects:
   - title: Game Glitch Investigator

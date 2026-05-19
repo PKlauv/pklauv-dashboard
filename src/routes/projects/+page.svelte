@@ -21,28 +21,35 @@
 			{@const primaryHref = project.live ?? project.github}
 			<div class="border border-[var(--color-border)] hover:border-emerald-400 transition-colors rounded-xl overflow-hidden bg-[var(--color-surface)] flex md:block">
 				<div class="w-32 shrink-0 md:w-auto md:px-4 md:pt-4">
-					{#if primaryHref}
-						<a
-							href={primaryHref}
-							target="_blank"
-							rel="noopener"
-							class="block h-full md:border-2 md:border-[var(--color-border)] md:hover:border-emerald-400 md:rounded-lg md:overflow-hidden md:transition-colors"
-						>
-							{#if project.image}
+					{#if project.image}
+						{#if primaryHref}
+							<a
+								href={primaryHref}
+								target="_blank"
+								rel="noopener"
+								class="block h-full md:border-2 md:border-[var(--color-border)] md:hover:border-emerald-400 md:rounded-lg md:overflow-hidden md:transition-colors"
+							>
 								<div class="aspect-square md:aspect-[16/10] overflow-hidden bg-[var(--color-bg)]">
 									<ProjectMedia
 										src={project.image}
 										poster={project.poster}
 										alt={project.title}
-										class="w-full h-full object-cover"
+										class="w-full h-full {project.imageFit === 'contain' ? 'object-contain' : 'object-cover'}"
 									/>
 								</div>
-							{:else}
-								<div class="aspect-square md:aspect-[16/10] bg-gradient-to-br from-[var(--color-surface)] to-[var(--color-bg)] flex items-center justify-center">
-									<span class="text-3xl font-bold text-[var(--color-border)]">{project.title[0]}</span>
+							</a>
+						{:else}
+							<div class="block h-full md:border-2 md:border-[var(--color-border)] md:rounded-lg md:overflow-hidden">
+								<div class="aspect-square md:aspect-[16/10] overflow-hidden bg-[var(--color-bg)]">
+									<ProjectMedia
+										src={project.image}
+										poster={project.poster}
+										alt={project.title}
+										class="w-full h-full {project.imageFit === 'contain' ? 'object-contain' : 'object-cover'}"
+									/>
 								</div>
-							{/if}
-						</a>
+							</div>
+						{/if}
 					{:else}
 						<div class="block h-full md:border-2 md:border-[var(--color-border)] md:rounded-lg md:overflow-hidden">
 							<div class="aspect-square md:aspect-[16/10] bg-gradient-to-br from-[var(--color-surface)] to-[var(--color-bg)] flex items-center justify-center">
