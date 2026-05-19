@@ -21,17 +21,24 @@ export function getTechColor(tech: string): string {
 	return techColors[tech] || 'text-[var(--color-text-muted)] border-[var(--color-border)]';
 }
 
+export interface Subproject {
+	title: string;
+	github: string;
+	description?: string;
+}
+
 export interface Project {
 	slug: string;
 	title: string;
 	description: string;
 	tech: string[];
 	source: 'open' | 'closed';
-	github: string;
+	github?: string;
 	live?: string;
 	image?: string;
 	poster?: string;
 	firstCommit: string;
+	subprojects?: Subproject[];
 }
 
 export async function getProjects(): Promise<Project[]> {
