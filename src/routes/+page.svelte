@@ -110,10 +110,10 @@
 			{#each data.featuredProjects as project}
 				<a
 					href="/projects/{project.slug}"
-					class="group rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)]/80 backdrop-blur-sm overflow-hidden transition-colors hover:bg-[var(--color-surface-hover)] hover:border-[var(--color-accent)]/30"
+					class="group flex md:block rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)]/80 backdrop-blur-sm overflow-hidden transition-colors hover:bg-[var(--color-surface-hover)] hover:border-[var(--color-accent)]/30"
 				>
 					{#if project.image}
-						<div class="aspect-video overflow-hidden bg-[var(--color-bg)]">
+						<div class="w-32 shrink-0 aspect-square md:w-full md:aspect-video overflow-hidden bg-[var(--color-bg)]">
 							<ProjectMedia
 								src={project.image}
 								poster={project.poster}
@@ -122,16 +122,16 @@
 							/>
 						</div>
 					{:else}
-						<div class="aspect-video bg-gradient-to-br from-[var(--color-surface)] to-[var(--color-bg)] flex items-center justify-center">
+						<div class="w-32 shrink-0 aspect-square md:w-full md:aspect-video bg-gradient-to-br from-[var(--color-surface)] to-[var(--color-bg)] flex items-center justify-center">
 							<span class="text-3xl font-bold text-[var(--color-border)]">{project.title[0]}</span>
 						</div>
 					{/if}
-					<div class="p-4">
+					<div class="flex-1 min-w-0 p-4">
 						<h3 class="text-sm font-medium group-hover:text-[var(--color-accent)] transition-colors">{project.title}</h3>
 						<p class="text-xs text-[var(--color-text-muted)] mt-2 line-clamp-2">{project.description}</p>
-						<div class="flex flex-wrap gap-1.5 mt-3">
-							{#each project.tech as t}
-								<span class="text-[11px] px-2 py-0.5 rounded border {getTechColor(t)}">{t}</span>
+						<div class="flex flex-wrap gap-1 md:gap-1.5 mt-2 md:mt-3">
+							{#each project.tech as t, i}
+								<span class="text-[11px] px-2 py-0.5 rounded border {getTechColor(t)} {i >= 2 ? 'hidden md:!flex' : ''}">{t}</span>
 							{/each}
 						</div>
 					</div>

@@ -28,3 +28,6 @@ docs/
 
 # Worktrees
 .worktrees/
+
+# Brainstorming mockups 
+.superpowers/
