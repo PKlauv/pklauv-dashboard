@@ -1,70 +1,35 @@
 ---
-title: Dealing with my 'insufficient directional discipline' & 'Always Be Building Mindset'
+title: Discipline, signaling, and the shifting value of a CS degree
 date: "2026-04-12"
-excerpt: In this blog post I talk about my daily struggles to not being able to tunnel vision into a task completely, so I never get focused. And I end up unfortunately not getting things done. Come find out.
+excerpt: On the cycle of starting projects without finishing them, the performance economy in modern CS, and what agentic coding might do to all of it.
 tags: ["personal", "thoughts"]
 published: true
 ---
----
-Have you ever woken up one morning, to do something you were super motivated to do? 
-And you do it, and it's the best feeling ever. 
 
-But then days go by, and the passion and motivation you once had is not the same, your brain finds other things to put part of your interest in, and again somewhere else, and suddenly you have so many things to do, but not enough determination to actually commit to a simple task. 
+You wake up motivated. You start a project and for a few days it feels great. Then the momentum fades, your attention drifts to a new idea, and a few weeks later you have a graveyard of half-finished things with no real sense of progress.
 
-Well you're not alone. Actually, far from it, according to a recent '*Junior Achievement USA survey*': **~87% of young adults** feel the need to supplement their lives with side hustles and personal projects. Although this might be related to some other branch, I still think it's relevant. 
+I've spent more time in that loop than I'd like to admit. A recent [Junior Achievement USA survey](https://miami.ja.org/news/blog/gen-z-s-career-confidence-vs-future-challenges-what-today-s-teens-really-think-about-work-ai-and-education) found that around 87% of young adults feel pressure to supplement their lives with side hustles and personal projects. The number isn't the point — the *feeling* is. We're all juggling, and most of us aren't finishing.
 
-And even more than that feel pressure to follow specific career paths.
+## The performance problem
 
+Spend any time on developer-adjacent social media and a pattern shows up fast: the Computer Science B.Sc. is producing more influencers than engineers. Flashy badges, certification keywords, "built X in a weekend" threads. A glorified communications degree with programming on the side.
 
-## Future of developing and developers
+I'm not above this — I've leaned into the signaling myself. The uncomfortable test is the follow-up question. *How did you actually use that framework? Why that choice over the alternative?* Most of the time the honest answer is "I don't know," and that's the whole story.
 
----
+So the question every student now faces is: do you play the signaling game and hope nobody asks the second question, or do you do the deeper work that's harder to display but probably matters more in five years?
 
-Fuck. I try man, I do, but I also would say I am not doing everything that I could be doing, especially in class, but I do maintain a decent GPA, as if that means anything. 
+I haven't fully answered that for myself. Which, honestly, is the biggest mistake of all.
 
-When having a look anywhere at social media around my major or people that are in my field, it just looks like the *Computer Science B.Sc* has been educating more influencers and social media enthusiasts. A glorified communications degree.
+## What if the question changes entirely?
 
-In this modern age, it's more about networking, and finding a niche, that makes you stick out just enough to get that first job, then be safe. 
+Agentic coding is reshaping the floor under all of this. If the tools keep improving at their current pace, a lot of what an undergrad CS curriculum teaches becomes assumable rather than learnable. Self-directed engineers who know how to wield the tools may matter more than credentialed ones who don't.
 
-Instead of my optimal long-term ideal way of mindset for students, which is students being actually interested in learning material, not interested in showing that they know something that they might not actually know. And this makes it hard for other students. They have to ask the ethical question themselves. 
+If that's where we're headed, the B.Sc. drifts further toward philosophy and communications, with programming as a foundation rather than the point.
 
-Do they succumb to the pressure, start posting that they know a bunch of material, while not being so sure in reality. Or do they do comprehensive study of material that might not be so easily displayed but would be beneficial in the long run (hopefully). 
-
-This is something that I have not figured out myself quite yet, and in constant thought about. Not acting much on it though, which is probably the biggest mistake of them all. 
-
-
-## It won't be easy, no doubt about that.
+I don't know if I'm right about any of this. But it's worth thinking through.
 
 ---
 
-— "You have to be elite, or else, you're falling behind." 
-
-That's the mentality I see many young students having, especially in my field. Some people will go to great lengths to display this, that they *are* elite. 
-
-You and me can see that I have fallen for this trick myself, flashy badges, technical keywords, there's more things I could mention but I wouldn't want to jeopardize myself in that way haha ;), so let's not go into that. But you get my point, if the student would be asked proper questions about how they used *'that'* framework in *'this'* way, they would freeze on the spot, wouldn't know what to say, and I understand. 
-
-
-
-## And what if I am wrong?
-
----
-
-The new way of coding could be shaping form right before our eyes. 
-
-Agentic coding. So fun. I am excited. :-)
-
-What's the use of bachelor's then, self learning would be the obvious way, if even that. Just try it out for yourself using the "latest tools", pretty user friendly if you're actually serious about computer science. 
-
-The **Computer Science B.Sc** turns into a glorified *Communications or Philosophy* degree with fundamental knowledge about programming. 
-
-
-#### Did you really make it all the way here. Sick, you're cool. 
----
-Do you happento relate in any shape, way or form? Then.. 
-
-It would mean a tremendous amount to me if you'd like to reach out to me and talk about it. :)
-
+If you've been sitting with similar questions, I'd genuinely like to talk about it — reach out.
 
 — Pk
-
-Sources: [JA of Greater Miami](https://miami.ja.org/news/blog/gen-z-s-career-confidence-vs-future-challenges-what-today-s-teens-really-think-about-work-ai-and-education#:~:text=Yet%2C%2057%25%20say%20AI%20has,side%20hustles%20or%20gig%20work.)
