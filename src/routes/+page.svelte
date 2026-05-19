@@ -95,25 +95,16 @@
 
 	<div class="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 pt-10 sm:pt-12">
 		<div class="grid grid-cols-1 md:grid-cols-3 gap-4 animate-card">
-			<!-- Intro card — spans 2 columns -->
-			<div class="md:col-span-2 rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)]/80 backdrop-blur-sm p-6">
+			<!-- Intro card — spans full row -->
+			<div class="md:col-span-3 rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)]/80 backdrop-blur-sm p-6">
 				<h1 class="text-2xl font-semibold tracking-tight">Computer Science | NCAA Soccer Athlete</h1>
 				<p class="text-[var(--color-text-muted)] mt-2">Per Kristian Lauvstad</p>
 				<p class="text-sm text-[var(--color-text-muted)] mt-3">
-					I'm a CS student on the early stages of the Software Engineering/Data Science track with a parallel career as a NCAA Soccer Athlete. 
+					I'm a CS student on the early stages of the Software Engineering/Data Science track with a parallel career as a NCAA Soccer Athlete.
 					<br><br>
 					Interested in something I'm building? Let's talk about it!
 				</p>
 			</div>
-
-			<!-- Dashboard link card -->
-			<a href="/dashboard" class="group rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)]/80 backdrop-blur-sm p-6 transition-colors hover:bg-[var(--color-surface-hover)] hover:border-[var(--color-accent)]/30 flex items-center justify-between">
-				<div>
-					<p class="text-xs text-[var(--color-text-muted)] uppercase tracking-wide">Dashboard</p>
-					<p class="text-sm text-[var(--color-text-muted)] mt-2">Analytics &amp; activity</p>
-				</div>
-				<span class="text-[var(--color-text-muted)] group-hover:text-[var(--color-accent)] transition-colors">&rarr;</span>
-			</a>
 
 			<!-- Project cards -->
 			{#each data.featuredProjects as project}
