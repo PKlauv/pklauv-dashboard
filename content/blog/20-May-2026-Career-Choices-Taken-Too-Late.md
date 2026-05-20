@@ -3,7 +3,7 @@ title: Some Career Choices are taken too late. Take them early.
 navTitle: "Take Choices Early"
 date: "2026-05-20"
 excerpt: "Not a pity story, a learning one: how I fell behind, and what I'd tell a younger me."
-tags: ["personal", "thoughts", "reflection"]
+tags: ["personal", "thoughts", "reflection", "lessons"]
 published: true
 ---
 
@@ -66,6 +66,13 @@ Set yourself up first → get a job → do your homework → then spend that tim
 My best tip is to spend actual hours and actual time with big decisions on your future. As someone who didn't myself, I've almost felt the future *just happen*, instead of taking it by the palm, and having a real goal, and reaching that goal.
 
 Spend some time finding out what you really want to do with life, and as I've experienced, recruiters want someone that's passionate about their subject, not someone who chose their profession for money (in some cases that might work too though).
+
+
+### Lesson 4 — Surround yourself appropriately
+
+Surround yourself with people who have high, similar goals. Why? When I started middle school I lived far from everyone else and never connected properly. I ended up escaping into video games, spending endless hours at the PC. That snowballed — I fell behind in every part of school and didn't recover until it was too late.
+
+What I take from it: if I'd instead surrounded myself with people who wanted to do well and keep learning, rather than disappearing into a game and avoiding everyone, **my life would've looked very different.** This shaped me through both middle and high school.
 
 I am happy with where I am at, and look positive towards the future, even when it can be tough. I continue to educate myself and be a better person. 
 Studying abroad has given me, and will keep giving me, real insight into how the world operates. And as a computer science student in particular, there's nothing better than living in a country that keeps pushing me, one of the most technologically driven places on earth.
