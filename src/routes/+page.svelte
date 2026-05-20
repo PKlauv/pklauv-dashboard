@@ -1,5 +1,5 @@
 <script lang="ts">
-	import MatrixRain from '$lib/components/MatrixRain.svelte';
+	import SineWaves from '$lib/components/SineWaves.svelte';
 	import ProjectMedia from '$lib/components/ProjectMedia.svelte';
 	import { getTechColor } from '$lib/projects';
 
@@ -89,12 +89,13 @@
 	});
 </script>
 
-<!-- Hero section with matrix rain — breaks out to full viewport width -->
-<div class="relative -mx-4 sm:-mx-6 -mt-10 sm:-mt-12 mb-4" style="min-height: 500px;">
-	<MatrixRain />
+<!-- Homepage — sine waves span the full page behind all content -->
+<div class="relative -mx-4 sm:-mx-6 -mt-10 sm:-mt-12 overflow-hidden">
+	<SineWaves />
 
-	<div class="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 pt-10 sm:pt-12">
-		<div class="grid grid-cols-1 md:grid-cols-3 gap-4 animate-card">
+	<div class="relative z-10 px-4 sm:px-6 pt-10 sm:pt-12 pb-4">
+		<div class="max-w-5xl mx-auto">
+			<div class="grid grid-cols-1 md:grid-cols-3 gap-4 animate-card">
 			<!-- Intro card — spans full row -->
 			<div class="md:col-span-3 rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)]/80 backdrop-blur-sm p-6">
 				<h1 class="text-2xl font-semibold tracking-tight">Computer Science | NCAA Soccer Athlete</h1>
@@ -138,13 +139,12 @@
 				</a>
 			{/each}
 		</div>
-	</div>
-</div>
+		</div>
 
-<!-- Below the fold — no matrix rain -->
-<div class="max-w-5xl mx-auto">
-	<div class="grid grid-cols-1 md:grid-cols-3 gap-4 animate-card">
-		<!-- Latest blog post card -->
+		<!-- Below the fold: blog + GitHub -->
+		<div class="max-w-5xl mx-auto mt-4">
+			<div class="grid grid-cols-1 md:grid-cols-3 gap-4 animate-card">
+				<!-- Latest blog post card -->
 		{#if data.latestPost}
 			<a href="/blog/{data.latestPost.slug}" class="group rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] p-6 transition-colors hover:bg-[var(--color-surface-hover)] hover:border-[var(--color-accent)]/30">
 				<p class="text-xs text-[var(--color-text-muted)] uppercase tracking-wide">Latest post from the blog</p>
@@ -223,5 +223,6 @@
 			{/if}
 		</div>
 	</div>
-
+	</div>
+	</div>
 </div>
