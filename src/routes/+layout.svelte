@@ -21,7 +21,9 @@
 </script>
 
 <svelte:head>
-	<link rel="icon" href={favicon} />
+	<link rel="icon" href={favicon} type="image/svg+xml" />
+	<link rel="icon" href="/favicon.png" sizes="32x32" type="image/png" />
+	<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 	<title>PK Lauvstad // Computer Science</title>
 </svelte:head>
 
