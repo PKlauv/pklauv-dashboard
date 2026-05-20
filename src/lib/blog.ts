@@ -1,6 +1,7 @@
 export interface Post {
 	slug: string;
 	title: string;
+	navTitle?: string;
 	date: string;
 	excerpt: string;
 	published: boolean;

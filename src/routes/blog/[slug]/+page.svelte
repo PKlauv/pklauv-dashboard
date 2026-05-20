@@ -19,4 +19,24 @@
 		<data.content />
 	</div>
 </article>
+
+<nav class="flex justify-between gap-4 mt-12 pt-8 border-t border-[var(--color-border)]">
+	{#if data.prev}
+		<a href="/blog/{data.prev.slug}" class="group min-w-0 flex-1 flex items-center gap-1 text-sm text-[var(--color-text-muted)] hover:text-[var(--color-text)] transition-colors">
+			<span class="shrink-0">&larr;</span>
+			<span class="truncate group-hover:underline">{data.prev.title}</span>
+		</a>
+	{:else}
+		<span class="flex-1"></span>
+	{/if}
+
+	{#if data.next}
+		<a href="/blog/{data.next.slug}" class="group min-w-0 flex-1 flex items-center justify-end gap-1 text-sm text-[var(--color-text-muted)] hover:text-[var(--color-text)] transition-colors">
+			<span class="truncate group-hover:underline">{data.next.title}</span>
+			<span class="shrink-0">&rarr;</span>
+		</a>
+	{:else}
+		<span class="flex-1"></span>
+	{/if}
+</nav>
 </div>

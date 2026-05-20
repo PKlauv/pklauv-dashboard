@@ -1,5 +1,6 @@
 ---
 title: Discipline, signaling, and the shifting value of a CS degree
+navTitle: "The Value of a CS Degree"
 date: "2026-04-12"
 excerpt: On the cycle of starting projects without finishing them, the performance economy in modern CS, and what agentic coding might do to all of it.
 tags: ["personal", "thoughts"]

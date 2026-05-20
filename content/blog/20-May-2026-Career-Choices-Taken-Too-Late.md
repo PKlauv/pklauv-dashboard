@@ -1,5 +1,6 @@
 ---
 title: Some Career Choices are taken too late. Take them early. 
+navTitle: "Take Choices Early"
 date: "2026-05-20"
 excerpt: "Not a pity story, a learning one: how I fell behind, and what I'd tell a younger me."
 tags: ["personal", "thoughts", "reflection"]
