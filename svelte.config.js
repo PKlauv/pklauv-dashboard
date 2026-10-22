@@ -9,7 +9,15 @@ const config = {
 		mdsvex({
 			extensions: ['.md'],
 			remarkPlugins: [remarkGfm]
-		})
+		}),
+		{
+			// mdsvex generates legacy module scripts for Markdown frontmatter.
+			name: 'modernize-mdsvex-module-scripts',
+			markup: ({ content, filename }) => {
+				if (!filename?.endsWith('.md')) return;
+				return { code: content.replace(/<script context="module">/g, '<script module>') };
+			}
+		}
 	],
 	compilerOptions: {
 		runes: ({ filename }) => (filename.split(/[/\\]/).includes('node_modules') ? undefined : true)

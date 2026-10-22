@@ -10,7 +10,7 @@ interface CacheEntry<T> {
 
 const cache = new Map<string, CacheEntry<unknown>>();
 
-async function fetchGitHub<T>(path: string): Promise<T> {
+async function fetchGitHub<T>(path: string): Promise<T | null> {
 	const cached = cache.get(path);
 	if (cached && cached.expires > Date.now()) {
 		return cached.data as T;
@@ -21,32 +21,62 @@ async function fetchGitHub<T>(path: string): Promise<T> {
 		headers.Authorization = `Bearer ${env.GITHUB_PAT}`;
 	}
 
-	const res = await fetch(`https://api.github.com${path}`, { headers });
-	const data = (await res.json()) as T;
-
-	cache.set(path, { data, expires: Date.now() + CACHE_TTL });
-	return data;
+	try {
+		let res = await fetch(`https://api.github.com${path}`, { headers });
+		if (res.status === 401 && headers.Authorization) {
+			console.error('GitHub rejected GITHUB_PAT; retrying public data without authentication.');
+			delete headers.Authorization;
+			res = await fetch(`https://api.github.com${path}`, { headers });
+		}
+		if (!res.ok) {
+			console.error(`GitHub REST request failed (${res.status}): ${path}`);
+			return null;
+		}
+		const data = (await res.json()) as T;
+		if (!Array.isArray(data)) {
+			console.error(`GitHub REST response was not an array: ${path}`);
+			return null;
+		}
+		cache.set(path, { data, expires: Date.now() + CACHE_TTL });
+		return data;
+	} catch {
+		console.error(`GitHub REST request could not be completed: ${path}`);
+		return null;
+	}
 }
 
-async function fetchGraphQL<T>(query: string): Promise<T> {
+async function fetchGraphQL<T>(query: string): Promise<T | null> {
 	const cacheKey = `graphql:${query}`;
 	const cached = cache.get(cacheKey);
 	if (cached && cached.expires > Date.now()) {
 		return cached.data as T;
 	}
 
-	const res = await fetch('https://api.github.com/graphql', {
-		method: 'POST',
-		headers: {
-			'Content-Type': 'application/json',
-			Authorization: `Bearer ${env.GITHUB_PAT}`
-		},
-		body: JSON.stringify({ query })
-	});
+	try {
+		const res = await fetch('https://api.github.com/graphql', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+				Authorization: `Bearer ${env.GITHUB_PAT}`
+			},
+			body: JSON.stringify({ query })
+		});
 
-	const json = (await res.json()) as { data: T };
-	cache.set(cacheKey, { data: json.data, expires: Date.now() + CACHE_TTL });
-	return json.data;
+		if (!res.ok) {
+			console.error(`GitHub GraphQL request failed (${res.status}); check GITHUB_PAT if unauthorized.`);
+			return null;
+		}
+		const json = (await res.json()) as { data?: T; errors?: unknown[] } | null;
+		if (!json?.data || json.errors?.length) {
+			console.error('GitHub GraphQL returned errors or no data.');
+			return null;
+		}
+		cache.set(cacheKey, { data: json.data, expires: Date.now() + CACHE_TTL });
+		return json.data;
+	} catch {
+		console.error('GitHub GraphQL request could not be completed.');
+		return null;
+	}
 }
 
 // Types
@@ -131,7 +161,6 @@ export async function getRecentActivity(limit = 10): Promise<Activity[]> {
 	const events = await fetchGitHub<GitHubEvent[]>(`/users/${USERNAME}/events?per_page=30`);
 
 	if (!Array.isArray(events)) {
-		console.error('GitHub activity response was not an array', events);
 		return [];
 	}
 
@@ -147,7 +176,6 @@ export async function getRepos(): Promise<Repo[]> {
 	const repos = await fetchGitHub<GitHubRepo[]>(`/users/${USERNAME}/repos?sort=pushed&per_page=10`);
 
 	if (!Array.isArray(repos)) {
-		console.error('GitHub repositories response was not an array', repos);
 		return [];
 	}
 
@@ -201,7 +229,10 @@ export async function getContributionCalendar(): Promise<ContributionCalendar> {
 		}
 	}`);
 
-	const cal = data.user.contributionsCollection.contributionCalendar;
+	const cal = data?.user?.contributionsCollection?.contributionCalendar;
+	if (!cal || !Array.isArray(cal.weeks)) {
+		return { totalContributions: 0, weeks: [] };
+	}
 	return {
 		totalContributions: cal.totalContributions,
 		weeks: cal.weeks.map((w) => ({

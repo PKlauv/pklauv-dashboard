@@ -84,7 +84,7 @@
 		hideTimer = setTimeout(() => { if (tooltipEl) tooltipEl.style.display = 'none'; }, 80);
 	}
 
-	let graphScroll: HTMLDivElement;
+	let graphScroll = $state<HTMLDivElement>();
 	$effect(() => {
 		if (graphScroll) graphScroll.scrollLeft = graphScroll.scrollWidth;
 		return () => { tooltipEl?.remove(); };

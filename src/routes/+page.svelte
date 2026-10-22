@@ -4,7 +4,7 @@
 	import { getTechColor } from '$lib/projects';
 
 	let { data } = $props();
-	let graphScroll: HTMLDivElement;
+	let graphScroll = $state<HTMLDivElement>();
 	$effect(() => {
 		if (graphScroll) graphScroll.scrollLeft = graphScroll.scrollWidth;
 	});
