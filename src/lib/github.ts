@@ -130,6 +130,11 @@ function describeEvent(event: GitHubEvent): string {
 export async function getRecentActivity(limit = 10): Promise<Activity[]> {
 	const events = await fetchGitHub<GitHubEvent[]>(`/users/${USERNAME}/events?per_page=30`);
 
+	if (!Array.isArray(events)) {
+		console.error('GitHub activity response was not an array', events);
+		return [];
+	}
+
 	return events.slice(0, limit).map((e) => ({
 		type: e.type,
 		repo: e.repo.name.replace(`${USERNAME}/`, ''),
@@ -140,6 +145,11 @@ export async function getRecentActivity(limit = 10): Promise<Activity[]> {
 
 export async function getRepos(): Promise<Repo[]> {
 	const repos = await fetchGitHub<GitHubRepo[]>(`/users/${USERNAME}/repos?sort=pushed&per_page=10`);
+
+	if (!Array.isArray(repos)) {
+		console.error('GitHub repositories response was not an array', repos);
+		return [];
+	}
 
 	return repos
 		.filter((r) => !r.fork)
